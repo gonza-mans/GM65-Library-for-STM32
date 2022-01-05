@@ -64,7 +64,7 @@ static void MX_TIM9_Init(void);
 /* USER CODE BEGIN 0 */
 struct gm65 QRScanner;
 
-char texto[25];
+char text[25];
 /* USER CODE END 0 */
 
 /**
@@ -110,13 +110,13 @@ int main(void)
   {
 
 	  if(QRScanner.qrDataReady==1){
-		  sprintf(texto,"Codigo decodificado:\n");
-		  HAL_UART_Transmit(&huart2, (uint8_t*)texto, 21 , HAL_MAX_DELAY);
+		  sprintf(texto,"Decoded code:\n");
+		  HAL_UART_Transmit(&huart2, (uint8_t*)texto, 14 , HAL_MAX_DELAY);
 		  if(QRScanner.qrBuffer[0] ==0x51 && QRScanner.qrBuffer[QRScanner.qrLengthDecode-1]== 0x0D){
 			  HAL_UART_Transmit(&huart2, QRScanner.qrBuffer+1, QRScanner.qrLengthDecode-2, HAL_MAX_DELAY);
 		  }
 		  else if(QRScanner.qrBuffer[0] != 0x51){
-			  sprintf(texto,"No es QR\n");
+			  sprintf(texto,"Not a QR\n");
 			  HAL_UART_Transmit(&huart2, (uint8_t*)texto, 9 , HAL_MAX_DELAY);
 		  }
 		  else{
